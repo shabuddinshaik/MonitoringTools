@@ -4,8 +4,11 @@ Helm charts and deployments for monitoring tools.
 kubectl create namespace monitoring
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
 helm repo add grafana https://grafana.github.io/helm-charts
+
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
 helm repo update
 
 helm install blackbox-exporter prometheus-community/prometheus-blackbox-exporter --namespace monitoring
