@@ -37,21 +37,24 @@ kubectl edit deployments prometheus-server -n monitoring
 kubectl rollout restart deployments prometheus-server -n monitoring
 
 ----------------------------------------------------------------------------------------
-After installing grafana use below command to check password:
+**After installing grafana use below command to check password:**
 kubectl get secret --namespace mon grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 username: admin
 password: output from above command
 
 -----------------------------------------------------------------------------------
-Portforward both:
+**Portforward:**
 
 kubectl port-forward service/prometheus-server 9090:80 -n monitoring
+
 kubectl port-forward service/loki-grafana 3000:80 -n monitoring
+
 kubectl port-forward service/blackbox-exporter-prometheus-blackbox-exporter 9115:9115 -n monitoring
+
 --------------------------------------------------------------------------------------
 
-open grafana add prometheus datasource:
+**open grafana add prometheus datasource:**
 
 http://prometheus-server:80
 
@@ -62,7 +65,7 @@ kubectl get secret --namespace mon grafana -o jsonpath="{.data.admin-password}"
 
 Kubectl edit daemonset loki-promtail -n monitoring
 
-Add the below parameters:
+**Add the below parameters:**
 
 spec:
   template:
