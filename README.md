@@ -160,7 +160,7 @@ kubectl edit configmap blackbox-exporter-prometheus-blackbox-exporter -n monitor
 kubectl rollout restart deployment blackbox-exporter-prometheus-blackbox-exporter -n monitoring
 
 ---------------------------------------------------------------------------------------------------------------
-**Example to tcp connect**
+**Example to use tcp connect**
 
       tcp_connect_AEF:
         tcp:
