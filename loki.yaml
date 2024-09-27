@@ -98,6 +98,16 @@ grafana:
       maxLines: 1000
   image:
     tag: latest
+  grafana.ini:
+    smtp:
+      enabled: true
+      host: smtp.yourserver.com:587
+      user: "your-smtp-username"
+      password: "your-smtp-password"
+      skip_verify: true
+      from_address: grafana@yourdomain.com
+      from_name: Grafana
+      ehlo_identity: yourdomain.com
 
 prometheus:
   enabled: false
