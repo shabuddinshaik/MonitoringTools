@@ -21,6 +21,13 @@ The **AWS Cost Exporter** Helm chart allows you to deploy the `aws-cost-exporter
 3. AWS credentials with permissions to access Cost Explorer and the associated accounts.
 4. Prometheus installed for metric collection.
 
+
+---
+Reference: https://github.com/electrolux-oss/aws-cost-exporter/releases/tag/v1.0.7
+
+Image: https://hub.docker.com/layers/opensourceelectrolux/aws-cost-exporter/v1.0.7/images/sha256-56a34a03aa090bea21c79ea0e5a48a6f07f3e239eb66480ce24991e78e9c1166?context=explore
+
+
 ---
 
 ## Installation
@@ -32,6 +39,14 @@ git clone <repository-url>
 cd aws-cost-exporter
 
 
+---
 
-Reference: https://github.com/electrolux-oss/aws-cost-exporter/releases/tag/v1.0.7
-Image: https://hub.docker.com/layers/opensourceelectrolux/aws-cost-exporter/v1.0.7/images/sha256-56a34a03aa090bea21c79ea0e5a48a6f07f3e239eb66480ce24991e78e9c1166?context=explore
+Update your Prometheus configuration to scrape the AWS Cost Exporter endpoint. Example snippet for prometheus.yml
+
+```bash
+
+scrape_configs:
+  - job_name: 'aws-cost-exporter'
+    scrape_interval: 1h
+    static_configs:
+      - targets: ['aws-cost-exporter.mon.svc.cluster.local:80']
