@@ -30,6 +30,17 @@ Image: https://hub.docker.com/layers/opensourceelectrolux/aws-cost-exporter/v1.0
 
 ---
 
+Update your Prometheus configuration to scrape the AWS Cost Exporter endpoint. Example snippet for prometheus.yml
+
+```bash
+scrape_configs:
+  - job_name: 'aws-cost-exporter'
+    scrape_interval: 1h
+    static_configs:
+      - targets: ['aws-cost-exporter.mon.svc.cluster.local:80']
+
+---
+
 ## Installation
 
 ### **1. Clone the Repository**
@@ -41,11 +52,4 @@ cd aws-cost-exporter
 
 ---
 
-Update your Prometheus configuration to scrape the AWS Cost Exporter endpoint. Example snippet for prometheus.yml
 
-```bash
-scrape_configs:
-  - job_name: 'aws-cost-exporter'
-    scrape_interval: 1h
-    static_configs:
-      - targets: ['aws-cost-exporter.mon.svc.cluster.local:80']
