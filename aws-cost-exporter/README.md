@@ -50,6 +50,5 @@ git clone <repository-url>
 cd aws-cost-exporter
 
 
----
 
 
