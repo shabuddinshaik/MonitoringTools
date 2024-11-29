@@ -44,7 +44,6 @@ cd aws-cost-exporter
 Update your Prometheus configuration to scrape the AWS Cost Exporter endpoint. Example snippet for prometheus.yml
 
 ```bash
-
 scrape_configs:
   - job_name: 'aws-cost-exporter'
     scrape_interval: 1h
