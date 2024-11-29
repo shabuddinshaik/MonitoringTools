@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-cost-exporter-config
+  namespace: {{ .Release.Namespace }}
+data:
+  exporter_config.yaml: |
+    exporter_port: {{ .Values.config.exporter_port }}
+    polling_interval_seconds: {{ .Values.config.polling_interval_seconds }}
+    metric_name: {{ .Values.config.metric_name }}
+    aws_access_key: {{ .Values.config.aws_access_key }}
+    aws_access_secret: {{ .Values.config.aws_access_secret }}
+    aws_assumed_role_name: {{ .Values.config.aws_assumed_role_name }}
+    group_by:
+      enabled: {{ .Values.config.group_by.enabled }}
+      groups:
+        {{- range .Values.config.group_by.groups }}
+        - type: {{ .type }}
+          key: {{ .key }}
+          label_name: {{ .label_name }}
+        {{- end }}
+      merge_minor_cost:
+        enabled: {{ .Values.config.group_by.merge_minor_cost.enabled }}
+        threshold: {{ .Values.config.group_by.merge_minor_cost.threshold }}
+        tag_value: {{ .Values.config.group_by.merge_minor_cost.tag_value }}
+    target_aws_accounts:
+      {{- range .Values.config.target_aws_accounts }}
+      - Publisher: {{ .Publisher }}
+        ProjectName: {{ .ProjectName }}
+        EnvironmentName: {{ .EnvironmentName }}
+      {{- end }}

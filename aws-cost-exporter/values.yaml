@@ -1,0 +1,67 @@
+replicaCount: 1
+
+image:
+  repository: opensourceelectrolux/aws-cost-exporter
+  tag: v1.0.7
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 9090
+
+resources:
+  limits:
+    memory: 500Mi
+  requests:
+    cpu: 50m
+    memory: 300Mi
+
+livenessProbe:
+  path: /health
+  port: 9090
+  initialDelaySeconds: 180
+  periodSeconds: 10
+
+readinessProbe:
+  path: /health
+  port: 9090
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+config:
+  exporter_port: 9090
+  polling_interval_seconds: 28800
+  metric_name: aws_daily_cost_usd
+  aws_access_key: ""
+  aws_access_secret: ""
+  aws_assumed_role_name: example-assumerole
+  group_by:
+    enabled: true
+    groups:
+      - type: DIMENSION
+        key: SERVICE
+        label_name: ServiceName
+      - type: DIMENSION
+        key: REGION
+        label_name: RegionName
+    merge_minor_cost:
+      enabled: false
+      threshold: 10
+      tag_value: other
+  target_aws_accounts:
+    - Publisher: 234567890123
+      ProjectName: dev-team-1
+      EnvironmentName: dev
+secret:
+  name: aws-cost-exporter-secret
+  namespace: mon
+  keys:
+    accessKeyId: AWS_ACCESS_KEY_ID
+    secretAccessKey: AWS_SECRET_ACCESS_KEY
+
+serviceAccount:
+  create: true
+  name: aws-cost-exporter
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789:role/aws-cost-exporter-irsa
