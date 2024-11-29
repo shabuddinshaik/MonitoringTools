@@ -39,6 +39,8 @@ scrape_configs:
     static_configs:
       - targets: ['aws-cost-exporter.mon.svc.cluster.local:80']
 
+
+
 ---
 
 ## Installation
